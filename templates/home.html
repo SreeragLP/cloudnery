@@ -44,6 +44,7 @@
                     <th>Fuel</th>
                     <th>Color</th>
                     <th>Number</th>
+                    <th>image</th>
                     <th>View</th>
                     <th>Update</th>
                     <th>Delete</th>
@@ -56,6 +57,11 @@
                     <td>{{ i.fuel }}</td>
                     <td>{{ i.color }}</td>
                     <td>{{ i.number }}</td>
+                    <td>
+                        {% if i.image %}
+                            <img src="{{ i.image.url }}" alt="{{ i.model_type }}" style="height: 100px;">
+                        {% endif %}
+                    </td>
                     <td><a href="{% url 'viewvihicle' i.id %}"><button type="button" class="btn btn-primary">View</button></a></td>
                     <td><a href="{% url 'update' i.id %}"><button type="button" class="btn btn-primary">Update</button></a></td>
                     <td><a href="{% url 'delete' i.id %}"><button type="button" class="btn btn-primary">Delete</button></a></td>
