@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from app1.models import Vihicle
 from app1.form import VihicleForm
 
@@ -14,16 +14,27 @@ def viewvihicle(request,k):
     return render(request,'viewvihicle.html',{'b1':b})
 
 
+# def add_vihicle(request):
+#     if request.method == 'POST':
+#         m = request.POST['m']
+#         f = request.POST['f']
+#         c = request.POST['c']
+#         n = request.POST['n']
+#         b= Vihicle.objects.create(model_type=m,fuel=f,color=c,number=n)
+#         b.save()
+#         return home(request)
+#     return render(request,'add_vihicle.html')
+
+
 def add_vihicle(request):
     if request.method == 'POST':
-        m = request.POST['m']
-        f = request.POST['f']
-        c = request.POST['c']
-        n = request.POST['n']
-        b= Vihicle.objects.create(model_type=m,fuel=f,color=c,number=n)
-        b.save()
-        return home(request)
-    return render(request,'add_vihicle.html')
+        form = VihicleForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = VihicleForm()
+    return render(request, 'add_vihicle.html', {'form': form})
 
 
 def delete(request,k):
